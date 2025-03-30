@@ -5,15 +5,16 @@ export interface CreateNoteParams {
 	content: string;
 }
 
-export async function createNote(database: PrismaClient, params: CreateNoteParams) {
+export async function createNote(database: PrismaClient, userId: number, params: CreateNoteParams) {
 	if (!params.title.trim() || !params.content.trim()) {
 		throw new Error("Both 'title' and 'content' must be non-empty strings.");
 	}
 
-	const newNote = await database.note.create({
+	const newNote = await database.notes.create({
 		data: {
 			title: params.title,
 			content: params.content,
+			userId,
 			createdAt: new Date(),
 		},
 	});

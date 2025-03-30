@@ -9,12 +9,30 @@ datasource db {
    schemas  = ["auth", "public", "storage"]
 }
 
-model Note {
+model notes {
    id        Int      @id @default(autoincrement())
    title     String
    content   String
    createdAt DateTime @default(now())
    updatedAt DateTime @updatedAt
+
+   user   user? @relation(fields: [userId], references: [id])
+   userId Int?
+
+   @@schema("public")
+}
+
+model user {
+   id        Int      @id @default(autoincrement())
+   name      String
+   email     String   @unique
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   notes notes[]
+
+   auth   users?  @relation(fields: [authId], references: [id])
+   authId String? @unique @db.Uuid
 
    @@schema("public")
 }
@@ -289,6 +307,8 @@ model users {
    mfa_factors                 mfa_factors[]
    one_time_tokens             one_time_tokens[]
    sessions                    sessions[]
+
+   userId user[]
 
    @@index([instance_id])
    @@index([is_anonymous])
