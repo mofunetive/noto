@@ -1,9 +1,9 @@
-import { PrismaClient } from "@noto/database";
+import type { PrismaClient } from "@noto/database";
 
-export async function getNotes(db: PrismaClient) {
-	const notes = await db.note.findMany({
+export async function getNotes(database: PrismaClient) {
+	const notes = await database.note.findMany({
 		orderBy: { createdAt: "desc" },
 	});
 
-	return { success: true, data: notes };
+	return notes;
 }

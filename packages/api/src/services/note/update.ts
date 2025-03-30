@@ -1,4 +1,4 @@
-import { PrismaClient } from "@noto/database";
+import type { PrismaClient } from "@noto/database";
 
 export async function updateNote(db: PrismaClient, id: number, params: { title?: string; content?: string }) {
 	if (!params.title && !params.content) {
@@ -10,5 +10,5 @@ export async function updateNote(db: PrismaClient, id: number, params: { title?:
 		data: params,
 	});
 
-	return { success: true, data: updatedNote };
+	return updatedNote;
 }
