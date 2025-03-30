@@ -1,7 +1,7 @@
 import { database, disconnectDatabase } from "./database";
-import { createNote } from "./services/note/create";
+import { createNote, CreateNoteParams } from "./services/note/create";
 import { getNotes } from "./services/note/get";
-import { updateNote } from "./services/note/update";
+import { updateNote, UpdateNoteParams } from "./services/note/update";
 import { deleteNote } from "./services/note/delete";
 
 class NoteService {
@@ -17,7 +17,7 @@ class NoteService {
 		}
 	}
 
-	async create(params: { title: string; content: string }) {
+	async create(params: CreateNoteParams) {
 		return this.executeWithDatabase(() => createNote(database, params));
 	}
 
@@ -25,7 +25,7 @@ class NoteService {
 		return this.executeWithDatabase(() => getNotes(database));
 	}
 
-	async update(id: number, params: { title?: string; content?: string }) {
+	async update(id: number, params: UpdateNoteParams) {
 		return this.executeWithDatabase(() => updateNote(database, id, params));
 	}
 
