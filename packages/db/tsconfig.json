@@ -1,0 +1,16 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"composite": true,
+		"lib": [
+			"DOM",
+			"ES2015"
+		]
+	},
+	"display": "@noto/database",
+	"extends": "../tsconfig.base.json",
+	"include": [
+		"prisma.ts"
+	]
+}

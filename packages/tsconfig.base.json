@@ -1,0 +1,36 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"moduleResolution": "bundler",
+		"noEmit": false,
+		"module": "ESNext",
+		"target": "ESNext",
+		"allowSyntheticDefaultImports": true,
+		"lib": [
+			"DOM",
+			"ESNext",
+			"ESNext.AsyncIterable"
+		],
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"incremental": true,
+		"noErrorTruncation": true,
+		"forceConsistentCasingInFileNames": true,
+		"composite": true,
+		"esModuleInterop": true,
+		"baseUrl": ".",
+		"paths": {
+			"@noto/*": [
+				"./packages/*"
+			]
+		}
+	},
+	"references": [
+		{
+			"path": "./api"
+		},
+		{
+			"path": "./db"
+		}
+	]
+}

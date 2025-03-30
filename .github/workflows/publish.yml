@@ -1,0 +1,21 @@
+name: Publish
+on:
+   workflow_dispatch:
+
+jobs:
+   format:
+      name: Publish
+      runs-on: ubuntu-latest
+      steps:
+         - name: Checkout
+           uses: actions/checkout@v4
+           with:
+              ref: ${{ github.ref }}
+
+         - name: Deploy to Vercel
+           uses: amondnet/vercel-action@v25
+           with:
+              vercel-token: ${{ secrets.VERCEL_TOKEN }}
+              vercel-args: "--prod"
+              vercel-org-id: ${{ secrets.ORG_ID }}
+              vercel-project-id: ${{ secrets.PROJECT_ID }}

@@ -1,0 +1,8 @@
+{
+	"files.exclude": {
+		"**/node_modules/": true,
+		"**/.turbo": true,
+		"**/*.tsbuildinfo": true
+	},
+	"npm.packageManager": "bun"
+}

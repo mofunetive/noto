@@ -1,0 +1,14 @@
+{
+	"name": "@noto/api",
+	"type": "module",
+	"main": "src/index.ts",
+	"scripts": {
+		"dev": "tsc -w --noEmit"
+	},
+	"dependencies": {
+		"@noto/database": "workspace:*"
+	},
+	"devDependencies": {
+		"typescript": "5.8.2"
+	}
+}
