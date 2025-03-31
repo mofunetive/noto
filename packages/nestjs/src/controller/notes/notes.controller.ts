@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
 import { NotesService } from "./notes.service";
-import { CreateNoteDto } from "./dto/create-note.dto";
-import { UpdateNoteDto } from "./dto/update-note.dto";
+import CreateNotesDto from "./dto/create-note.dto";
+import UpdateNotesDto from "./dto/update-note.dto";
 
 @Controller("notes")
 export class NotesController {
 	constructor(private readonly notesService: NotesService) {}
 
 	@Post()
-	create(@Body() createNoteDto: CreateNoteDto) {
+	create(@Body() createNoteDto: CreateNotesDto) {
 		return this.notesService.create(createNoteDto);
 	}
 
@@ -23,7 +23,7 @@ export class NotesController {
 	}
 
 	@Patch(":id")
-	update(@Param("id") id: string, @Body() updateNoteDto: UpdateNoteDto) {
+	update(@Param("id") id: string, @Body() updateNoteDto: UpdateNotesDto) {
 		return this.notesService.update(+id, updateNoteDto);
 	}
 

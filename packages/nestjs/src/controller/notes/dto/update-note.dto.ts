@@ -1,4 +1,2 @@
-import { PartialType } from "@nestjs/swagger";
-import { CreateNoteDto } from "./create-note.dto";
-
-export class UpdateNoteDto extends PartialType(CreateNoteDto) {}
+import { UpdateNotes } from "../../../types/notes/dto/update-notes.dto";
+export default UpdateNotes;

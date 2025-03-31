@@ -10,9 +10,12 @@ async function bootstrap() {
 	const document = SwaggerModule.createDocument(app, config);
 
 	SwaggerModule.setup("api", app, document, {
-		customCss: ".swagger-ui .topbar { display: none }",
+		customCss: `
+     .swagger-ui .topbar { display: none }
+     .curl-command {display:none}
+     `,
 	});
 
 	await app.listen(1111);
 }
-bootstrap();
+void bootstrap();

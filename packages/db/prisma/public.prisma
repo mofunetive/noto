@@ -1,0 +1,62 @@
+generator client {
+   provider        = "prisma-client-js"
+   previewFeatures = ["multiSchema", "prismaSchemaFolder"]
+}
+
+datasource db {
+   provider = "postgresql"
+   url      = env("DATABASE_URL")
+   schemas  = ["auth", "public", "storage"]
+}
+
+generator nestjsDto {
+   provider                        = "prisma-generator-nestjs-dto"
+   output                          = "../../nestjs/src/types"
+   outputToNestJsResourceStructure = "true"
+   flatResourceStructure           = "false"
+   exportRelationModifierClasses   = "true"
+   reExport                        = "false"
+   generateFileTypes               = "all"
+   createDtoPrefix                 = "Create"
+   updateDtoPrefix                 = "Update"
+   dtoSuffix                       = ""
+   entityPrefix                    = ""
+   entitySuffix                    = ""
+   classValidation                 = "false"
+   fileNamingStyle                 = "camel"
+   noDependencies                  = "false"
+   outputType                      = "class"
+   definiteAssignmentAssertion     = "false"
+   requiredResponseApiProperty     = "true"
+   prettier                        = "true"
+   wrapRelationsAsType             = "false"
+   showDefaultValues               = "false"
+}
+
+model notes {
+   id        Int      @id @default(autoincrement())
+   title     String
+   content   String
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   user   user? @relation(fields: [userId], references: [id])
+   userId Int?
+
+   @@schema("public")
+}
+
+model user {
+   id        Int      @id @default(autoincrement())
+   name      String
+   email     String   @unique
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   notes notes[]
+
+   auth   users?  @relation(fields: [authId], references: [id])
+   authId String? @unique @db.Uuid
+
+   @@schema("public")
+}
