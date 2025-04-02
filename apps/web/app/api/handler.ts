@@ -5,7 +5,7 @@ export const handleRequest = async (method: string, request: Request, context?: 
 		const { api } = context?.params || {};
 		const pathSegments = api || [],
 			nestApiPath = pathSegments.join("/"),
-			baseUrl = process.env.NEST_API_URL || "http://localhost:1111",
+			baseUrl = process.env.NEST_API_URL || "http://localhost:1111/api",
 			url = new URL(`${baseUrl}/${nestApiPath}`),
 			originalUrl = new URL(request.url);
 
