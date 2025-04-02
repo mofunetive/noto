@@ -15,7 +15,7 @@
 	},
 	"devDependencies": {
 		"@types/bun": "1.2.8",
-		"@types/node": "22.13.14",
+		"@types/node": "22.13.17",
 		"prettier": "3.5.3",
 		"prettier-plugin-packagejson": "2.5.10",
 		"prettier-plugin-sort-json": "4.1.1",
@@ -24,5 +24,5 @@
 	"peerDependencies": {
 		"typescript": "^5"
 	},
-	"packageManager": "bun@1.2.7"
+	"packageManager": "bun@1.2.8"
 }
