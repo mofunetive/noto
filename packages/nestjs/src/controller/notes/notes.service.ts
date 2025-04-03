@@ -7,9 +7,10 @@ import { PrismaService } from "src/service/prisma/prisma.service";
 export class NotesService {
 	constructor(private prisma: PrismaService) {}
 
-	create(createNoteDto: CreateNotesDto) {
+	create(id: number, createNoteDto: CreateNotesDto) {
 		return this.prisma.notes.create({
 			data: {
+				userId: id,
 				...createNoteDto,
 			},
 		});
@@ -19,9 +20,21 @@ export class NotesService {
 		return this.prisma.notes.findMany();
 	}
 
-	findOne(id: number) {
-		return this.prisma.notes.findUnique({
-			where: { id },
+	findAllByUser(userId: number, sortBy: "createdAt" | "updatedAt" = "updatedAt") {
+		return this.prisma.notes.findMany({
+			where: {
+				userId,
+			},
+			select: {
+				id: true,
+				title: true,
+				content: true,
+				createdAt: true,
+				updatedAt: true,
+			},
+			orderBy: {
+				[sortBy]: "desc",
+			},
 		});
 	}
 

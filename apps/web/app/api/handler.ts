@@ -2,14 +2,13 @@ import { methods } from "./methods";
 
 export const handleRequest = async (method: string, request: Request, context?: { params: { api?: string[] } }) => {
 	try {
-		const { api } = context?.params || {};
-		const pathSegments = api || [],
+		const { api } = context?.params || {},
+			pathSegments = api || [],
 			nestApiPath = pathSegments.join("/"),
-			baseUrl = process.env.NEST_API_URL || "http://localhost:1111/api",
-			url = new URL(`${baseUrl}/${nestApiPath}`),
-			originalUrl = new URL(request.url);
+			baseUrl = process.env.NEST_API_URL ?? "http://localhost:1111/api",
+			url = new URL(`${baseUrl}/${nestApiPath}`);
 
-		url.search = originalUrl.search;
+		url.search = new URL(request.url).search;
 
 		const body = method !== "GET" && method !== "DELETE" ? JSON.stringify(await request.json()) : undefined,
 			headers = new Headers();
