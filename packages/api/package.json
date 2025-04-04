@@ -3,7 +3,8 @@
 	"type": "module",
 	"main": "src/index.ts",
 	"scripts": {
-		"dev": "tsc -w --noEmit"
+		"dev": "tsc -w --noEmit",
+		"lint": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@noto/database": "workspace:*"

@@ -2,6 +2,10 @@
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": [".env"],
 	"tasks": {
+		"lint": {
+			"cache": true,
+			"persistent": true
+		},
 		"dev": {
 			"cache": true,
 			"persistent": true

@@ -7,6 +7,7 @@
 		"dev": "prisma generate && BROWSER=none prisma studio",
 		"generate": "prisma generate",
 		"postinstall": "bunx prisma generate",
+		"lint": "tsc --noEmit",
 		"pull": "prisma db pull",
 		"push": "prisma db push"
 	},
