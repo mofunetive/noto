@@ -8,6 +8,9 @@
 	],
 	"scripts": {
 		"build": "turbo run build",
+		"db:build": "dotenv -e .env -- bun --filter '@noto/database' build",
+		"db:pull": "dotenv -e .env -- bun --filter '@noto/database' pull",
+		"db:push": "dotenv -e .env -- bun --filter '@noto/database' push",
 		"dev": "turbo run dev",
 		"lint": "turbo run lint",
 		"prettier": "prettier --write . --ignore-unknown"
@@ -15,6 +18,7 @@
 	"devDependencies": {
 		"@types/bun": "1.2.8",
 		"@types/node": "22.14.0",
+		"dotenv-cli": "8.0.0",
 		"prettier": "3.5.3",
 		"prettier-plugin-packagejson": "2.5.10",
 		"prettier-plugin-sort-json": "4.1.1",

@@ -3,7 +3,7 @@ import { AppModule } from "./app.module";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { VersioningType } from "@nestjs/common";
 
-const port = process.env.npm_lifecycle_event === "dev" ? 1111 : 3000;
+const port = process.env.npm_lifecycle_event === "dev" || process.env.NODE_ENV === "development" ? 1111 : 3000;
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
