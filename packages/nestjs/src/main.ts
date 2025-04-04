@@ -3,6 +3,8 @@ import { AppModule } from "./app.module";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { VersioningType } from "@nestjs/common";
 
+const port = process.env.npm_lifecycle_event === "dev" ? 1111 : 3000;
+
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 	app.setGlobalPrefix("api/v1");
@@ -35,8 +37,9 @@ async function bootstrap() {
    .swagger-ui .opblock { box-shadow: none !important; }
    .swagger-ui .topbar-wrapper img { display: none; }
    `,
+		swaggerUiEnabled: true,
 	});
 
-	await app.listen(1111);
+	await app.listen(port);
 }
 void bootstrap();

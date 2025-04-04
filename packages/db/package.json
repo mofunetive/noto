@@ -4,7 +4,7 @@
 	"main": "prisma.ts",
 	"scripts": {
 		"build": "prisma generate",
-		"dev": "prisma generate && prisma studio BROWSER=none",
+		"dev": "prisma generate && BROWSER=none prisma studio",
 		"generate": "prisma generate",
 		"pull": "prisma db pull",
 		"push": "prisma db push"
@@ -15,7 +15,7 @@
 		"prisma": "6.5.0"
 	},
 	"devDependencies": {
-		"@types/node": "22.13.17"
+		"@types/node": "22.14.0"
 	},
 	"prisma": {
 		"schema": "./prisma"

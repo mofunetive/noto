@@ -8,10 +8,10 @@ import { useEffect, useState } from "react";
 
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
-import { notes } from "@noto/database";
+import { Prisma } from "@noto/database";
 import { useNoteStore } from "@/store/note";
 
-export default function EditNote({ note, setOpen }: { note: notes | undefined; setOpen: () => void }) {
+export default function EditNote({ note, setOpen }: { note: Prisma.notesUncheckedCreateInput | []; setOpen: () => void }) {
 	const { updateNote, removeNote } = useNoteStore();
 
 	const [noteId, setNoteId] = useState<number | undefined>(undefined);
@@ -19,18 +19,18 @@ export default function EditNote({ note, setOpen }: { note: notes | undefined; s
 	const [context, setContext] = useState("");
 
 	useEffect(() => {
-		if (note != undefined) {
+		if (note != undefined && !Array.isArray(note)) {
 			setNoteId(note.id);
 			setTitle(note.title);
 			setContext(note.content);
 		}
 	}, [note, setNoteId, setTitle, setContext]);
 
-	const submitForm = (e: any) => {
-		e.preventDefault();
+	const submitForm = (event: React.FormEvent) => {
+		event.preventDefault();
 
 		if (note != undefined) {
-			if (noteId != undefined && (note.title != title || note.content != context)) {
+			if (noteId != undefined && !Array.isArray(note) && (note.title != title || note.content != context)) {
 				updateNote(noteId, title, context);
 				toast("Note has be edited");
 			}

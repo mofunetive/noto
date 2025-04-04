@@ -12,6 +12,23 @@ jobs:
            with:
               ref: ${{ github.ref }}
 
+         - name: Cache Bun dependencies
+           uses: actions/cache@v4
+           with:
+              path: ~/.bun/install/cache
+              key: ${{ runner.os }}-bun-cache-${{ hashFiles('**/package.json', '**/bun.lockb') }}
+
+         - name: Setup Bun
+           uses: oven-sh/setup-bun@v2
+           with:
+              bun-version-file: "package.json"
+
+         - name: Install Dependencies
+           run: bun install
+
+         - name: Install Dependencies
+           run: bun run build
+
          - name: Deploy to Vercel
            uses: amondnet/vercel-action@v25
            with:

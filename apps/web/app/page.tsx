@@ -2,8 +2,7 @@
 
 import supabase from "@/services/supabase";
 import AddNote from "@/components/home/add-note";
-
-import { notes } from "@noto/database";
+import { notes, Prisma } from "@noto/database";
 import { useEffect, useState } from "react";
 import { NotebookText } from "lucide-react";
 import { useAuthStore } from "@/store/user";
@@ -16,7 +15,7 @@ import EditNote from "@/components/home/edit.note";
 
 export default function Home() {
 	const [open, setOpen] = useState(false);
-	const [editDrawerOpen, setEditDrawerOpen] = useState<notes | undefined>(undefined);
+	const [editDrawerOpen, setEditDrawerOpen] = useState<Prisma.notesUncheckedCreateInput | undefined>(undefined);
 	const { user, signIn, setUser } = useAuthStore();
 	const { allNotes, addNote, getNotes } = useNoteStore();
 
@@ -39,13 +38,21 @@ export default function Home() {
 			<div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
 				{allNotes.length > 0 && isLogin
 					? allNotes.map((note: notes) => {
-							// console.log();
-
 							const unix = note.updatedAt ?? note.createdAt;
 							const date = new Date(unix).toLocaleString();
 
 							return (
-								<Card key={note.id} className="relative break-words overflow-ellipsis cursor-pointer" onClick={() => setEditDrawerOpen(note)}>
+								<Card
+									key={note.id}
+									className="relative break-words overflow-ellipsis cursor-pointer"
+									onClick={() =>
+										setEditDrawerOpen({
+											title: note.title,
+											content: note.content,
+											userId: 1,
+										})
+									}
+								>
 									<CardHeader>
 										<CardTitle className="overflow-hidden line-clamp-1">{note.title}</CardTitle>
 									</CardHeader>
@@ -99,21 +106,20 @@ export default function Home() {
 			)}
 			<AddNote
 				onAdd={(newNote) => {
-					const note = {
-						id: allNotes.length + 1,
+					if (!user?.id) return;
+
+					const note: Prisma.notesCreateInput = {
 						title: newNote.title,
-						content: newNote.text,
-						createdAt: new Date(),
-						updatedAt: new Date(),
-						userId: user?.id ?? null,
-					} as notes;
+						content: newNote.content,
+						user: { connect: { id: Number(user.id) } },
+					};
 
 					addNote(note);
 				}}
 				open={open}
 				setOpen={setOpen}
 			/>
-			<EditNote note={editDrawerOpen} setOpen={() => setEditDrawerOpen(undefined)} />
+			{editDrawerOpen ? <EditNote note={editDrawerOpen} setOpen={() => setEditDrawerOpen(undefined)} /> : undefined}
 		</section>
 	);
 }

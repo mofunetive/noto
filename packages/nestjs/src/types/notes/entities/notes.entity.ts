@@ -28,11 +28,13 @@ export class Notes {
 	@ApiProperty({
 		type: () => User,
 		required: false,
+		nullable: true,
 	})
-	user?: User;
+	user?: User | null;
 	@ApiProperty({
 		type: "integer",
 		format: "int32",
+		nullable: true,
 	})
-	userId: number;
+	userId: number | null;
 }

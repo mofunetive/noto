@@ -1,32 +1,32 @@
 import { openDB } from "idb";
 import { create } from "zustand";
-import type { notes } from "@noto/database/";
+import { notes, Prisma } from "@noto/database";
 
 interface State {
 	allNotes: notes[];
 	getNotes: () => void;
-	addNote: (note: notes) => void;
+	addNote: (note: notes | Prisma.notesUpdateInput) => void;
 	updateNote: (noteId: number, title: string, content: string) => void;
 	removeNote: (noteId: number) => void;
 }
 
-const openIndexDB = async () => {
-	await openDB("noto", 3, {
-		upgrade(db) {
-			if (!db.objectStoreNames.contains("notes")) {
-				const objectStore = db.createObjectStore("notes", { keyPath: "id", autoIncrement: true });
-				objectStore.createIndex("id", "id");
-				objectStore.createIndex("title", "title");
-				objectStore.createIndex("content", "content");
-				objectStore.createIndex("createdAt", "createdAt");
-				objectStore.createIndex("updatedAt", "updatedAt");
-				objectStore.createIndex("userId", "userId");
+// const openIndexDB = async () => {
+// 	await openDB("noto", 3, {
+// 		upgrade(db) {
+// 			if (!db.objectStoreNames.contains("notes")) {
+// 				const objectStore = db.createObjectStore("notes", { keyPath: "id", autoIncrement: true });
+// 				objectStore.createIndex("id", "id");
+// 				objectStore.createIndex("title", "title");
+// 				objectStore.createIndex("content", "content");
+// 				objectStore.createIndex("createdAt", "createdAt");
+// 				objectStore.createIndex("updatedAt", "updatedAt");
+// 				objectStore.createIndex("userId", "userId");
 
-				console.log("Store Created");
-			}
-		},
-	});
-};
+// 				console.log("Store Created");
+// 			}
+// 		},
+// 	});
+// };
 
 export const useNoteStore = create<State>((set) => ({
 	allNotes: [],
@@ -41,7 +41,7 @@ export const useNoteStore = create<State>((set) => ({
 	},
 	addNote: async (note) => {
 		const cloneNotes = structuredClone(useNoteStore.getState().allNotes);
-		cloneNotes.unshift(note);
+		cloneNotes.unshift(note as notes);
 
 		const db = await openDB("noto", 3);
 		const tx = db.transaction("notes", "readwrite");
