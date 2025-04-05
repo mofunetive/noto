@@ -4,6 +4,9 @@ import { getNotes } from "./services/notes/get";
 import { updateNote, UpdateNoteParams } from "./services/notes/update";
 import { deleteNote } from "./services/notes/delete";
 import { CreateUserParams, getOrCreateUser } from "./services/users/user";
+import { useNote } from "./swr/useNote";
+import { addNote } from "./swr/addNote";
+import { fetcher } from "./swr/fetcher";
 
 class NoteService {
 	private async executeWithDatabase<T>(operation: () => Promise<T>, onError?: (error: any) => void): Promise<T> {
@@ -40,3 +43,4 @@ class NoteService {
 }
 
 export default new NoteService();
+export { fetcher, useNote, addNote };

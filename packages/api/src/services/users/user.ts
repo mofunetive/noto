@@ -21,7 +21,7 @@ export async function getOrCreateUser(database: PrismaClient, params: CreateUser
 		user = await database.user.create({
 			data: {
 				name: typeof authUser.raw_user_meta_data === "string" ? (JSON.parse(authUser.raw_user_meta_data).full_name ?? "Unknown User") : "Unknown User",
-				email: authUser.email,
+				email: authUser?.email ?? "",
 				authId: authUser.id,
 				createdAt: new Date(),
 			},
