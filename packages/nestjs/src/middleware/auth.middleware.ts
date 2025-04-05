@@ -27,17 +27,35 @@ export class AuthMiddleware implements NestMiddleware {
 			throw new UnauthorizedException("Token not found");
 		}
 
-		const userId = await this.prismaService.user.findFirst({
-			where: {
-				authId: refreshToken.user_id,
-			},
-		});
+		if (refreshToken.user_id) {
+			let user = await this.prismaService.user.findUnique({
+				where: { authId: refreshToken.user_id },
+			});
 
-		if (!userId || !userId.authId) {
-			throw new UnauthorizedException("User ID not found in token");
+			if (!user) {
+				const authUser = await this.prismaService.users.findUnique({
+					where: { id: refreshToken.user_id },
+				});
+
+				if (!authUser) {
+					throw new Error(`Auth user with id ${refreshToken.user_id} not found`);
+				}
+
+				user = await this.prismaService.user.create({
+					data: {
+						name: typeof authUser.raw_user_meta_data === "object" ? ((authUser.raw_user_meta_data as { full_name?: string })?.full_name ?? "Unknown User") : "Unknown User",
+						email: authUser?.email ?? "",
+						authId: authUser?.id,
+						createdAt: new Date(),
+					},
+				});
+			}
+
+			if (user.authId) {
+				req.headers["userId"] = user.id.toString();
+				req.headers["authId"] = user.authId;
+			}
 		}
-
-		req.headers["userId"] = userId.authId;
 		next();
 	}
 }

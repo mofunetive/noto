@@ -3,10 +3,19 @@ import { AppModule } from "./app.module";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { VersioningType } from "@nestjs/common";
 
-const port = process.env.npm_lifecycle_event === "dev" || process.env.NODE_ENV === "development" ? 1111 : 3000;
+const isDev = process.env.npm_lifecycle_event === "dev" || process.env.NODE_ENV === "development" ? true : false;
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
+
+	if (isDev) {
+		app.enableCors({
+			origin: "*",
+			methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+			allowedHeaders: "Content-Type,Authorization",
+		});
+	}
+
 	app.setGlobalPrefix("api/v1");
 	app.enableVersioning({
 		type: VersioningType.URI,
@@ -40,6 +49,6 @@ async function bootstrap() {
 		swaggerUiEnabled: true,
 	});
 
-	await app.listen(port);
+	await app.listen(isDev ? 1111 : 3000);
 }
 void bootstrap();

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, Req } from "@nestjs/common";
 import { NotesService } from "./notes.service";
 import CreateNotesDto from "./dto/create-note.dto";
 import UpdateNotesDto from "./dto/update-note.dto";
@@ -10,34 +10,28 @@ import { ApiBearerAuth, ApiQuery } from "@nestjs/swagger";
 export class NotesController {
 	constructor(private readonly notesService: NotesService) {}
 
-	@Post(":userId")
+	@Post()
 	@UseGuards(AuthGuard)
-	create(@Param("userId") id: number, @Body() createNoteDto: CreateNotesDto) {
-		return this.notesService.create(+id, createNoteDto);
+	create(@Req() req: Request, @Body() createNoteDto: CreateNotesDto) {
+		return this.notesService.create(req, createNoteDto);
 	}
 
 	@Get()
 	@UseGuards(AuthGuard)
-	findAll() {
-		return this.notesService.findAll();
-	}
-
-	@Get(":userId")
-	@UseGuards(AuthGuard)
 	@ApiQuery({ name: "sortBy", enum: ["createdAt", "updatedAt"], required: false, default: "updatedAt" })
-	findAllByUser(@Param("userId") userId: string, @Query("sortBy") sortBy: "createdAt" | "updatedAt" = "updatedAt") {
-		return this.notesService.findAllByUser(+userId, sortBy);
+	find(@Req() req: Request, @Query("sortBy") sortBy: "createdAt" | "updatedAt" = "updatedAt") {
+		return this.notesService.find(req, sortBy);
 	}
 
 	@Patch(":id")
 	@UseGuards(AuthGuard)
-	update(@Param("id") id: string, @Body() updateNoteDto: UpdateNotesDto) {
-		return this.notesService.update(+id, updateNoteDto);
+	update(@Req() req: Request, @Param("id") id: string, @Body() updateNoteDto: UpdateNotesDto) {
+		return this.notesService.update(req, +id, updateNoteDto);
 	}
 
 	@Delete(":id")
 	@UseGuards(AuthGuard)
-	remove(@Param("id") id: string) {
-		return this.notesService.remove(+id);
+	remove(@Req() req: Request, @Param("id") id: string) {
+		return this.notesService.remove(req, +id);
 	}
 }

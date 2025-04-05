@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Req } from "@nestjs/common";
 import CreateNotesDto from "./dto/create-note.dto";
 import UpdateNotesDto from "./dto/update-note.dto";
 import { PrismaService } from "../../service/prisma/prisma.service";
@@ -7,30 +7,19 @@ import { PrismaService } from "../../service/prisma/prisma.service";
 export class NotesService {
 	constructor(private prisma: PrismaService) {}
 
-	create(id: number, createNoteDto: CreateNotesDto) {
+	create(@Req() req: Request, createNoteDto: CreateNotesDto) {
 		return this.prisma.notes.create({
 			data: {
-				userId: id,
+				userId: Number(req.headers["userId"]),
 				...createNoteDto,
 			},
 		});
 	}
 
-	findAll() {
-		return this.prisma.notes.findMany();
-	}
-
-	findAllByUser(userId: number, sortBy: "createdAt" | "updatedAt" = "updatedAt") {
+	find(@Req() req: Request, sortBy: "createdAt" | "updatedAt" = "updatedAt") {
 		return this.prisma.notes.findMany({
 			where: {
-				userId,
-			},
-			select: {
-				id: true,
-				title: true,
-				content: true,
-				createdAt: true,
-				updatedAt: true,
+				userId: Number(req.headers["userId"]),
 			},
 			orderBy: {
 				[sortBy]: "desc",
@@ -38,18 +27,24 @@ export class NotesService {
 		});
 	}
 
-	update(id: number, updateNoteDto: UpdateNotesDto) {
+	update(@Req() req: Request, id: number, updateNoteDto: UpdateNotesDto) {
 		return this.prisma.notes.update({
-			where: { id },
+			where: {
+				id,
+				userId: Number(req.headers["userId"]),
+			},
 			data: {
 				...updateNoteDto,
 			},
 		});
 	}
 
-	remove(id: number) {
+	remove(@Req() req: Request, id: number) {
 		return this.prisma.notes.delete({
-			where: { id },
+			where: {
+				id,
+				userId: Number(req.headers["userId"]),
+			},
 		});
 	}
 }

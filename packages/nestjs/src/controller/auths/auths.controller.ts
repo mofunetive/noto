@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Delete, UseGuards, Req } from "@nestjs/common";
 import { AuthsService } from "./auths.service";
 import CreateAuthDto from "./dto/create-auth.dto";
 import UpdateAuthDto from "./dto/update-auth.dto";
@@ -18,25 +18,19 @@ export class AuthsController {
 
 	@Get()
 	@UseGuards(AuthGuard)
-	findAll() {
-		return this.authsService.findAll();
+	find(@Req() req: Request) {
+		return this.authsService.find(req);
 	}
 
-	@Get(":id")
+	@Patch()
 	@UseGuards(AuthGuard)
-	findOne(@Param("id") id: string) {
-		return this.authsService.findOne(id);
+	update(@Req() req: Request, @Body() updateAuthDto: UpdateAuthDto) {
+		return this.authsService.update(req, updateAuthDto);
 	}
 
-	@Patch(":id")
+	@Delete()
 	@UseGuards(AuthGuard)
-	update(@Param("id") id: string, @Body() updateAuthDto: UpdateAuthDto) {
-		return this.authsService.update(id, updateAuthDto);
-	}
-
-	@Delete(":id")
-	@UseGuards(AuthGuard)
-	remove(@Param("id") id: string) {
-		return this.authsService.remove(id);
+	remove(@Req() req: Request) {
+		return this.authsService.remove(req);
 	}
 }

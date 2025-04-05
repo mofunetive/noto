@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Req } from "@nestjs/common";
 import CreateAuthDto from "./dto/create-auth.dto";
 import UpdateAuthDto from "./dto/update-auth.dto";
 import { PrismaService } from "../../service/prisma/prisma.service";
@@ -13,28 +13,22 @@ export class AuthsService {
 		});
 	}
 
-	findAll() {
-		return this.prisma.users.findMany({
-			where: { deleted_at: null },
-		});
-	}
-
-	findOne(id: string) {
+	find(@Req() req: Request) {
 		return this.prisma.users.findUnique({
-			where: { id },
+			where: { id: req.headers["authId"] as string },
 		});
 	}
 
-	update(id: string, updateAuthDto: UpdateAuthDto) {
+	update(@Req() req: Request, updateAuthDto: UpdateAuthDto) {
 		return this.prisma.users.update({
-			where: { id },
+			where: { id: req.headers["authId"] as string },
 			data: updateAuthDto,
 		});
 	}
 
-	remove(id: string) {
+	remove(@Req() req: Request) {
 		return this.prisma.users.update({
-			where: { id },
+			where: { id: req.headers["authId"] as string },
 			data: { deleted_at: new Date() },
 		});
 	}
