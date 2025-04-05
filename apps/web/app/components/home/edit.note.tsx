@@ -10,10 +10,22 @@ import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import { Prisma } from "@noto/database";
 import { useNoteStore } from "@/store/note";
+import { editNote } from "@noto/api";
+import { Session } from "@supabase/supabase-js";
 
-export default function EditNote({ note, setOpen }: { note: Prisma.notesUncheckedCreateInput | []; setOpen: () => void }) {
+export default function EditNote({
+	session,
+	note,
+	setOpen,
+	mutate,
+}: {
+	session: Session;
+	note: Prisma.notesUncheckedCreateInput | [];
+	setOpen: () => void;
+	mutate: () => Promise<void>;
+}) {
 	const { updateNote, removeNote } = useNoteStore();
-
+	console.log(note);
 	const [noteId, setNoteId] = useState<number | undefined>(undefined);
 	const [title, setTitle] = useState("");
 	const [context, setContext] = useState("");
@@ -26,13 +38,15 @@ export default function EditNote({ note, setOpen }: { note: Prisma.notesUnchecke
 		}
 	}, [note, setNoteId, setTitle, setContext]);
 
-	const submitForm = (event: React.FormEvent) => {
+	const submitForm = async (event: React.FormEvent) => {
 		event.preventDefault();
 
 		if (note != undefined) {
 			if (noteId != undefined && !Array.isArray(note) && (note.title != title || note.content != context)) {
+				await editNote(noteId.toString(), { content: context, title: title }, session.refresh_token);
 				updateNote(noteId, title, context);
-				toast("Note has be edited");
+				toast("Note has been edited");
+				await mutate();
 			}
 		}
 
@@ -42,7 +56,7 @@ export default function EditNote({ note, setOpen }: { note: Prisma.notesUnchecke
 	const deleteNote = () => {
 		if (noteId != undefined) {
 			removeNote(noteId);
-			toast("Note has be remove");
+			toast("Note has been removed");
 		}
 	};
 

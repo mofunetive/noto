@@ -6,6 +6,7 @@ import { deleteNote } from "./services/notes/delete";
 import { CreateUserParams, getOrCreateUser } from "./services/users/user";
 import { useNote } from "./swr/useNote";
 import { addNote } from "./swr/addNote";
+import { editNote } from "./swr/editNote";
 import { fetcher } from "./swr/fetcher";
 
 class NoteService {
@@ -43,4 +44,4 @@ class NoteService {
 }
 
 export default new NoteService();
-export { fetcher, useNote, addNote };
+export { fetcher, useNote, addNote, editNote };
