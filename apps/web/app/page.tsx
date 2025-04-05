@@ -12,11 +12,12 @@ import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/comp
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNoteStore } from "./store/note";
 import EditNote from "@/components/home/edit.note";
+import { useNote } from "@noto/api";
 
 export default function Home() {
 	const [open, setOpen] = useState(false);
 	const [editDrawerOpen, setEditDrawerOpen] = useState<Prisma.notesUncheckedCreateInput | undefined>(undefined);
-	const { user, signIn, setUser } = useAuthStore();
+	const { user, session, signIn, setUser } = useAuthStore();
 	const { allNotes, addNote, getNotes } = useNoteStore();
 
 	useEffect(() => {
@@ -24,14 +25,18 @@ export default function Home() {
 			const user = session?.user;
 			console.log("onAuthStateChange", user, event);
 			if (user === undefined) return;
-			setUser(user);
-
+			setUser(user, session);
 			getNotes();
 		});
-	}, [setUser]);
+	}, [getNotes, setUser, session?.refresh_token]);
 
 	const isLogin = user !== null;
+	const { isError, isLoading, notes } = useNote(session?.refresh_token);
 
+	if (isLoading) return;
+	if (isError) return;
+
+	console.log(notes);
 	return (
 		<section className="h-full flex flex-col gap-4">
 			{/* <Input placeholder="Search" /> */}
@@ -111,7 +116,6 @@ export default function Home() {
 					const note: Prisma.notesCreateInput = {
 						title: newNote.title,
 						content: newNote.content,
-						user: { connect: { id: Number(user.id) } },
 					};
 
 					addNote(note);

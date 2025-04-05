@@ -5,15 +5,17 @@ import { Session } from "@supabase/supabase-js";
 
 interface State {
 	user: Session["user"] | null;
+	session: Session | null;
 	signIn: () => void;
 	signOut: () => void;
-	setUser: (user: Session["user"] | null) => void;
+	setUser: (user?: Session["user"] | null, session?: Session | null) => void;
 }
 
 export const useAuthStore = create<State>((set) => ({
 	user: null,
+	session: null,
 	signIn: async () => {
-		await supabase.auth.signInWithOAuth({
+		return await supabase.auth.signInWithOAuth({
 			provider: "google",
 		});
 	},
@@ -24,9 +26,9 @@ export const useAuthStore = create<State>((set) => ({
 			console.error(error);
 		}
 
-		return set({ user: null });
+		return set({ user: null, session: null });
 	},
-	setUser: async (user: Session["user"] | null) => {
-		return set({ user: user });
+	setUser: (user?: Session["user"] | null, session?: Session | null) => {
+		return set({ user: user ?? null, session: session ?? null });
 	},
 }));
