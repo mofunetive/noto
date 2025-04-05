@@ -29,6 +29,8 @@ jobs:
          - name: Install Dependencies
            run: bun run build
            env:
+              SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+              SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
               DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
          - name: Deploy to Vercel
