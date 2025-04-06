@@ -1,15 +1,16 @@
+import type { Options } from "../types/fetcher";
 import { notes, Prisma } from "@noto/database";
 import { fetcher } from "./fetcher";
 
-export async function editNote(id: string, input: Prisma.notesCreateInput, refresh_token: string | undefined) {
+export async function editNote(id: string, input: Prisma.notesCreateInput, refresh_token: Options['refresh_token']) {
 	try {
-		const response = await fetcher(`/api/v1/notes/${id}`, {
+		const response = await fetcher({
+			refresh_token,
 			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${refresh_token}`,
+			url: `/api/v1/notes/${id}`,
+			options: {
+				body: JSON.stringify(input),
 			},
-			body: JSON.stringify(input),
 		});
 
 		const data = response as notes;
