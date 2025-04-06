@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
@@ -7,7 +8,6 @@ import { NotesModule } from "./controller/notes/notes.module";
 import { UsersModule } from "./controller/users/users.module";
 import { AuthMiddleware } from "./middleware/auth.middleware";
 import { PrismaModule } from "./service/prisma/prisma.module";
-import { ConfigModule } from "@nestjs/config";
 
 @Module({
 	imports: [
@@ -16,9 +16,9 @@ import { ConfigModule } from "@nestjs/config";
 		UsersModule,
 		AuthsModule,
 		ConfigModule.forRoot({
-			envFilePath: ['../../.env'],
+			envFilePath: ["../../.env"],
 			isGlobal: true,
-		})
+		}),
 	],
 	controllers: [AppController],
 	providers: [AppService],
