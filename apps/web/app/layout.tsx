@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 
-import { AppSidebar, AppNavbar } from "@/components/layout/app-sidebar";
+import { AppSidebar } from "@/components/layout/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 export const metadata: Metadata = {
