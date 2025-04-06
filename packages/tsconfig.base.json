@@ -24,13 +24,5 @@
 				"./packages/*"
 			]
 		}
-	},
-	"references": [
-		{
-			"path": "./api"
-		},
-		{
-			"path": "./db"
-		}
-	]
+	}
 }
