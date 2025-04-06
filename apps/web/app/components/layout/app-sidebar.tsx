@@ -66,7 +66,8 @@ export function AppSidebar() {
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<SidebarMenuButton>
-							<User2 /> Username
+							<User2 />
+							{user?.user_metadata.name ?? "Username"}
 							<ChevronUp className="ml-auto" />
 						</SidebarMenuButton>
 					</DropdownMenuTrigger>
@@ -81,16 +82,16 @@ export function AppSidebar() {
 								<Label>{user?.email}</Label>
 							</div>
 						</div>
-						<DropdownMenuSeparator />
+						{/* <DropdownMenuSeparator />
 						<DropdownMenuItem>
 							<Label>Account</Label>
-						</DropdownMenuItem>
-						<DropdownMenuItem>
+						</DropdownMenuItem> */}
+						{/* <DropdownMenuItem>
 							<Label>Test</Label>
 						</DropdownMenuItem>
 						<DropdownMenuItem>
 							<Label>Test 2</Label>
-						</DropdownMenuItem>
+						</DropdownMenuItem> */}
 						<DropdownMenuSeparator />
 						<DropdownMenuItem onClick={signOut}>
 							<LogOut />

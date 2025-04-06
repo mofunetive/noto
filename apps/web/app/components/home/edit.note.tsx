@@ -25,7 +25,7 @@ export default function EditNote({
 	mutate: () => Promise<void>;
 }) {
 	const refresh_token = session.refresh_token;
-	const { updateNote, removeNote } = useNoteStore();
+	// const { updateNote, removeNote } = useNoteStore();
 	const [noteId, setNoteId] = useState<number | undefined>(undefined);
 	const [title, setTitle] = useState("");
 	const [context, setContext] = useState("");
@@ -44,7 +44,7 @@ export default function EditNote({
 		if (note != undefined) {
 			if (noteId != undefined && !Array.isArray(note) && (note.title != title || note.content != context)) {
 				await editNote(noteId.toString(), { content: context, title: title }, refresh_token);
-				updateNote(noteId, title, context);
+				// updateNote(noteId, title, context);
 				toast("Note has been edited");
 				await mutate();
 			}
@@ -55,7 +55,7 @@ export default function EditNote({
 
 	const deleteNote = async () => {
 		if (noteId != undefined) {
-			removeNote(noteId);
+			// removeNote(noteId);
 			await delNote(noteId.toString(), refresh_token);
 			toast("Note has been removed");
 			await mutate();

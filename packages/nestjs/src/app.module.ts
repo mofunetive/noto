@@ -7,9 +7,19 @@ import { NotesModule } from "./controller/notes/notes.module";
 import { UsersModule } from "./controller/users/users.module";
 import { AuthMiddleware } from "./middleware/auth.middleware";
 import { PrismaModule } from "./service/prisma/prisma.module";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
-	imports: [PrismaModule, NotesModule, UsersModule, AuthsModule],
+	imports: [
+		PrismaModule,
+		NotesModule,
+		UsersModule,
+		AuthsModule,
+		ConfigModule.forRoot({
+			envFilePath: ['../../.env'],
+			isGlobal: true,
+		})
+	],
 	controllers: [AppController],
 	providers: [AppService],
 })

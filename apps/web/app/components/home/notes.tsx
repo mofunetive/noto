@@ -11,7 +11,7 @@ import EditNote from "@/components/home/edit.note";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import AddNote from "./add-note";
+import AddNote from "./add.note";
 
 export function NotesList({ session }: { session: Session }) {
 	const refresh_token = session.refresh_token;
@@ -25,6 +25,16 @@ export function NotesList({ session }: { session: Session }) {
 
 	return (
 		<>
+			{(notes === undefined || notes.length <= 0) && !isLoading && (
+				<div className="flex gap-2 h-full justify-center items-center">
+					<p>เพิ่มโน๊ตแรกของคุณโดย กดปุ่ม</p>
+					<Button variant="outline" size="icon" onClick={() => setOpen(true)}>
+						<NotebookText />
+					</Button>
+					<p>ที่ขวาล่างได้เลย</p>
+				</div>
+			)}
+
 			<div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
 				{!isLoading ? (
 					notes.map(({ id, title, content, updatedAt, createdAt }) => {
