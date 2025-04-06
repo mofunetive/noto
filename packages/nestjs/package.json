@@ -9,7 +9,7 @@
 		"dev": "nest start --watch",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"generate:resource": "nest generate resource",
-		"lint": "eslint .",
+		"lint": "eslint . --fix",
 		"prod": "node dist/main",
 		"start": "nest start"
 	},
