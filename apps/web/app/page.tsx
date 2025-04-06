@@ -29,6 +29,7 @@ export default function Home() {
 	}, [setUser, session?.refresh_token]);
 
 	const isLogin = user !== null;
+
 	return (
 		<section className="h-full flex flex-col gap-4">
 			{isLogin && session ? (

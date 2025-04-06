@@ -1,6 +1,6 @@
 "use client";
 
-import { editNote } from "@noto/api";
+import { delNote, editNote } from "@noto/api";
 import { Prisma } from "@noto/database";
 import { Session } from "@supabase/supabase-js";
 import { Trash2 } from "lucide-react";
@@ -24,8 +24,8 @@ export default function EditNote({
 	setOpen: () => void;
 	mutate: () => Promise<void>;
 }) {
+	const refresh_token = session.refresh_token;
 	const { updateNote, removeNote } = useNoteStore();
-	console.log(note);
 	const [noteId, setNoteId] = useState<number | undefined>(undefined);
 	const [title, setTitle] = useState("");
 	const [context, setContext] = useState("");
@@ -43,7 +43,7 @@ export default function EditNote({
 
 		if (note != undefined) {
 			if (noteId != undefined && !Array.isArray(note) && (note.title != title || note.content != context)) {
-				await editNote(noteId.toString(), { content: context, title: title }, session.refresh_token);
+				await editNote(noteId.toString(), { content: context, title: title }, refresh_token);
 				updateNote(noteId, title, context);
 				toast("Note has been edited");
 				await mutate();
@@ -53,10 +53,12 @@ export default function EditNote({
 		setOpen();
 	};
 
-	const deleteNote = () => {
+	const deleteNote = async () => {
 		if (noteId != undefined) {
 			removeNote(noteId);
+			await delNote(noteId.toString(), refresh_token);
 			toast("Note has been removed");
+			await mutate();
 		}
 	};
 
