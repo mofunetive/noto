@@ -1,5 +1,5 @@
 import type { Options } from "../types/fetcher";
-import { notes, Prisma } from "@noto/database";
+import type { notes, Prisma } from "@noto/database";
 import { fetcher } from "./fetcher";
 
 export async function editNote(id: string, input: Prisma.notesCreateInput, refresh_token: Options["refresh_token"]) {
