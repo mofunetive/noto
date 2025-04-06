@@ -1,6 +1,7 @@
 {
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": [".env"],
+	"globalEnv": ["DATABASE_URL", "SUPABASE_URL", "SUPABASE_KEY"],
 	"tasks": {
 		"lint": {
 			"cache": true,
@@ -12,7 +13,6 @@
 		},
 		"build": {
 			"dependsOn": ["^build"],
-			"inputs": ["$TURBO_DEFAULT$", ".env*"],
 			"outputs": [".next/**", "dist/**", "!.next/cache/**"]
 		}
 	},
