@@ -23,8 +23,8 @@ export default function AddNote({
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogContent className="max-h-screen sm:max-w-2xl">
 				<DialogHeader>
-					<DialogTitle>Noto Add</DialogTitle>
-					<DialogDescription>Fill in the details below to add a new note.</DialogDescription>
+					<DialogTitle>Noto เพิ่มโน๊ต</DialogTitle>
+					<DialogDescription>จดโน๊ตของคุณ เพื่อทดทวนความจำ</DialogDescription>
 				</DialogHeader>
 				<form
 					onSubmit={(e) => {
@@ -33,23 +33,23 @@ export default function AddNote({
 						setTitle("");
 						setContent("");
 						setOpen(false);
-						toast("Note has be created");
+						toast("โน๊ตถูกสร้างขึ้นแล้ว");
 					}}
 				>
 					<div className="flex flex-col gap-4">
-						<Input id="title" value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} required />
+						<Input id="title" value={title} placeholder="ชื่อเรื่อง" onChange={(e) => setTitle(e.target.value)} required />
 						<Textarea
 							className="max-w-lg sm:max-w-[39rem] h-48"
 							rows={15}
 							id="content"
 							value={content}
-							placeholder="Content"
+							placeholder="เนื้อหา"
 							onChange={(e) => setContent(e.target.value)}
 							required
 						/>
 						<DialogFooter>
 							<DialogTrigger asChild>
-								<Button type="submit">Add Note</Button>
+								<Button type="submit">เพิ่มโน๊ต</Button>
 							</DialogTrigger>
 						</DialogFooter>
 					</div>

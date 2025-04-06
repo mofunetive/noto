@@ -40,9 +40,7 @@ export default function Home() {
 						<Label className="text-xl">สวัสดีชาวโลก, นี้คือ Noto เว็บสำหรับโน๊ต</Label>
 						<Button
 							className="cursor-pointer"
-							onClick={() => {
-								signIn();
-							}}
+							onClick={signIn}
 							// disabled={isLoading}
 						>
 							{isLoading ? "กำลังโหลด..." : "เข้าสู่ระบบเพื่อเริ่ม Note!"}

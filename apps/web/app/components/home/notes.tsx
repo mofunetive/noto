@@ -82,7 +82,7 @@ export function NotesList({ session }: { session: Session }) {
 							</Button>
 						</TooltipTrigger>
 						<TooltipContent>
-							<p>Add Note</p>
+							<p>เพิ่มโน๊ต</p>
 						</TooltipContent>
 					</Tooltip>
 				</TooltipProvider>

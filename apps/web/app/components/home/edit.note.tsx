@@ -44,7 +44,7 @@ export default function EditNote({
 			if (noteId != undefined && !Array.isArray(note) && (note.title != title || note.content != context)) {
 				await editNote(noteId.toString(), { content: context, title: title }, refresh_token);
 				// updateNote(noteId, title, context);
-				toast("Note has been edited");
+				toast("โน๊ตแก้ไขเรียบร้อยแล้ว");
 				await mutate();
 			}
 		}
@@ -56,7 +56,7 @@ export default function EditNote({
 		if (noteId != undefined) {
 			// removeNote(noteId);
 			await delNote(noteId.toString(), refresh_token);
-			toast("Note has been removed");
+			toast("โน๊ตถูกลบเรียบร้อย");
 			await mutate();
 		}
 	};
@@ -69,24 +69,21 @@ export default function EditNote({
 						<Button className="absolute top-8 right-0 sm:right-0 cursor-pointer" variant="outline" size="icon" onClick={deleteNote}>
 							<Trash2 color="red" />
 						</Button>
-
 						<DrawerHeader>
-							<DrawerTitle>Noto Edit</DrawerTitle>
-							<DrawerDescription>note everywhere, everytime</DrawerDescription>
+							<DrawerTitle>Noto แก้ไขโน๊ต</DrawerTitle>
+							<DrawerDescription>บลา บลา บลา</DrawerDescription>
 						</DrawerHeader>
-						<div className="p-4 pb-0">
-							<p className="leading-7 [&:not(:first-child)]:mt-6">Title</p>
-							<Input id="title" value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} required />
-							<p className="leading-7 [&:not(:first-child)]:mt-6">Context</p>
-							<Textarea className="max-h-60 overflow-auto" id="text" value={context} placeholder="Content" onChange={(e) => setContext(e.target.value)} required />
+						<div className="flex flex-col p-4 gap-4">
+							<Input id="title" value={title} placeholder="ชื่อเรื่อง" onChange={(e) => setTitle(e.target.value)} required />
+							<Textarea className="max-h-60 overflow-auto" id="text" value={context} placeholder="เนื้อหา" onChange={(e) => setContext(e.target.value)} required />
 						</div>
 						<DrawerFooter>
 							<Button type="submit" className="cursor-pointer">
-								Save
+								บันทึก
 							</Button>
 							<DrawerClose asChild>
 								<Button variant="outline" className="cursor-pointer">
-									Cancel
+									ยกเลิก
 								</Button>
 							</DrawerClose>
 						</DrawerFooter>
