@@ -13,6 +13,7 @@
 		"enabled": false
 	},
 	"public": false,
+	"regions": ["sin1"],
 	"routes": [
 		{
 			"src": "^/api(?:/(.*))?$",
