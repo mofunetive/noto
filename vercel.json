@@ -15,7 +15,7 @@
 	"public": false,
 	"routes": [
 		{
-			"src": "/api/(.*)",
+			"src": "^/api(?:/(.*))?$",
 			"dest": "packages/nestjs/dist/main.js"
 		},
 		{
