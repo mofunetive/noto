@@ -9,13 +9,11 @@ const isDev = process.env.npm_lifecycle_event === "dev" || process.env.NODE_ENV 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
-	if (isDev) {
-		app.enableCors({
-			origin: "*",
-			methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-			allowedHeaders: "Content-Type,Authorization",
-		});
-	}
+	app.enableCors({
+		origin: isDev ? "*" : "https://noto-mofu.vercel.app",
+		methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+		allowedHeaders: "Content-Type,Authorization",
+	});
 
 	app.setGlobalPrefix("api/v1");
 	app.enableVersioning({
@@ -48,6 +46,14 @@ async function bootstrap() {
    .swagger-ui .topbar-wrapper img { display: none; }
    `,
 		swaggerUiEnabled: true,
+		customSiteTitle: "API",
+		...(!isDev && {
+			customCssUrl: ["https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.20.6/swagger-ui.min.css"],
+			customJs: [
+				"https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.20.6/swagger-ui-bundle.js",
+				"https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.20.6/swagger-ui-standalone-preset.js",
+			],
+		}),
 	});
 
 	await app.listen(isDev ? 1111 : 3000);
