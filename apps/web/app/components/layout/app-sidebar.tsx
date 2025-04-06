@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronUp, LogOut, NotebookPen, User2 } from "lucide-react";
+import { ChevronRight, LogOut, NotebookPen, User2 } from "lucide-react";
 import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -68,10 +68,10 @@ export function AppSidebar() {
 						<SidebarMenuButton>
 							<User2 />
 							{user?.user_metadata.name ?? "Username"}
-							<ChevronUp className="ml-auto" />
+							<ChevronRight className="ml-auto" />
 						</SidebarMenuButton>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent side="right" className="w-[--radix-popper-anchor-width]">
+					<DropdownMenuContent side="right">
 						<div className="flex m-2 gap-2 items-center">
 							<Avatar>
 								<AvatarImage src={user?.user_metadata.avatar_url ?? "https://i.ibb.co/QvZF9YQ0/1743190075465.jpg"} />

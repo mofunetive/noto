@@ -15,9 +15,9 @@ export default function Home() {
 
 	useEffect(() => {
 		setIsLoading(true);
-		supabase.auth.onAuthStateChange((event, session) => {
+		supabase.auth.onAuthStateChange((_, session) => {
 			const user = session?.user;
-			console.log("onAuthStateChange", user, event);
+
 			if (user === undefined) {
 				return;
 			}

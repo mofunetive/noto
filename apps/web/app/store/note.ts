@@ -21,8 +21,6 @@ const openIndexDB = async () => {
 				objectStore.createIndex("createdAt", "createdAt");
 				objectStore.createIndex("updatedAt", "updatedAt");
 				objectStore.createIndex("userId", "userId");
-
-				console.log("Store Created");
 			}
 		},
 	});
