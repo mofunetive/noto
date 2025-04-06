@@ -66,7 +66,7 @@ export default function EditNote({
 			<DrawerContent>
 				<form onSubmit={submitForm}>
 					<div className="relative mx-auto w-full max-w-4xl">
-						<Button className="absolute top-8 right-0 sm:right-0 cursor-pointer" variant="outline" size="icon" onClick={deleteNote}>
+						<Button className="absolute top-8 right-8 cursor-pointer" variant="outline" size="icon" onClick={deleteNote}>
 							<Trash2 color="red" />
 						</Button>
 						<DrawerHeader>
@@ -75,7 +75,14 @@ export default function EditNote({
 						</DrawerHeader>
 						<div className="flex flex-col p-4 gap-4">
 							<Input id="title" value={title} placeholder="ชื่อเรื่อง" onChange={(e) => setTitle(e.target.value)} required />
-							<Textarea className="max-h-60 overflow-auto" id="text" value={context} placeholder="เนื้อหา" onChange={(e) => setContext(e.target.value)} required />
+							<Textarea
+								className="max-h-60 overflow-auto resize-none"
+								id="text"
+								value={context}
+								placeholder="เนื้อหา"
+								onChange={(e) => setContext(e.target.value)}
+								required
+							/>
 						</div>
 						<DrawerFooter>
 							<Button type="submit" className="cursor-pointer">

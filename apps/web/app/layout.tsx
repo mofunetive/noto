@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 
-import { AppSidebar } from "@/components/layout/app-sidebar";
+import { AppSidebar, AppNavbar } from "@/components/layout/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 export const metadata: Metadata = {
@@ -21,8 +21,9 @@ export default function RootLayout({
 			<body>
 				<SidebarProvider>
 					<AppSidebar />
+					{/* <AppNavbar /> */}
 					<main className="w-full p-8"> {children}</main>
-					<Toaster />
+					<Toaster position="top-right" />
 				</SidebarProvider>
 			</body>
 		</html>

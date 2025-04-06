@@ -39,7 +39,7 @@ export default function AddNote({
 					<div className="flex flex-col gap-4">
 						<Input id="title" value={title} placeholder="ชื่อเรื่อง" onChange={(e) => setTitle(e.target.value)} required />
 						<Textarea
-							className="max-w-lg sm:max-w-[39rem] h-48"
+							className="max-w-lg sm:max-w-[39rem] h-48 resize-none"
 							rows={15}
 							id="content"
 							value={content}

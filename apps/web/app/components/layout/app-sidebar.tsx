@@ -103,3 +103,11 @@ export function AppSidebar() {
 		</Sidebar>
 	);
 }
+
+export function AppNavbar() {
+	return (
+		<nav className="absolute h-fit w-screen bg-red-400 @min-[768px]:invisible">
+			<p>asdhsaoihdsahdoiahsoi</p>
+		</nav>
+	);
+}
