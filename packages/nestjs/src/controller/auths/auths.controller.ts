@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Delete, UseGuards, Req } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Req, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth } from "@nestjs/swagger";
+
+import { AuthGuard } from "../../guards/auth.guard";
 import { AuthsService } from "./auths.service";
 import CreateAuthDto from "./dto/create-auth.dto";
 import UpdateAuthDto from "./dto/update-auth.dto";
-import { AuthGuard } from "../../guards/auth.guard";
-import { ApiBearerAuth } from "@nestjs/swagger";
 
 @ApiBearerAuth()
 @Controller("auths")

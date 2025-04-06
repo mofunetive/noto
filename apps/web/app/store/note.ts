@@ -1,6 +1,6 @@
+import type { notes, Prisma } from "@noto/database";
 import { openDB } from "idb";
 import { create } from "zustand";
-import type { notes, Prisma } from "@noto/database";
 
 interface State {
 	allNotes: notes[];

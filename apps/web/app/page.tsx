@@ -1,10 +1,12 @@
 "use client";
 
-import supabase from "@/services/supabase";
 import { useEffect, useState } from "react";
-import { useAuthStore } from "@/store/user";
-import { Label } from "@/components/ui/label";
+
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import supabase from "@/services/supabase";
+import { useAuthStore } from "@/store/user";
+
 import Notes from "./components/home/notes";
 
 export default function Home() {

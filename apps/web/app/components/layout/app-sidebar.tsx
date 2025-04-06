@@ -1,5 +1,11 @@
 "use client";
 
+import { ChevronUp, LogOut, NotebookPen, User2 } from "lucide-react";
+import Link from "next/link";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Label } from "@/components/ui/label";
 import {
 	Sidebar,
 	SidebarContent,
@@ -12,13 +18,6 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
-import Link from "next/link";
-
-import { Label } from "@/components/ui/label";
-import { ChevronUp, LogOut, NotebookPen, User2 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/store/user";
 
 const items = [

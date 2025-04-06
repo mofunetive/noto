@@ -1,17 +1,17 @@
 "use client";
 
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
+import { editNote } from "@noto/api";
+import { Prisma } from "@noto/database";
+import { Session } from "@supabase/supabase-js";
+import { Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
-
-import { toast } from "sonner";
-import { Trash2 } from "lucide-react";
-import { Prisma } from "@noto/database";
 import { useNoteStore } from "@/store/note";
-import { editNote } from "@noto/api";
-import { Session } from "@supabase/supabase-js";
 
 export default function EditNote({
 	session,

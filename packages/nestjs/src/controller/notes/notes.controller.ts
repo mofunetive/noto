@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, Req } from "@nestjs/common";
-import { NotesService } from "./notes.service";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiQuery } from "@nestjs/swagger";
+
+import { AuthGuard } from "../../guards/auth.guard";
 import CreateNotesDto from "./dto/create-note.dto";
 import UpdateNotesDto from "./dto/update-note.dto";
-import { AuthGuard } from "../../guards/auth.guard";
-import { ApiBearerAuth, ApiQuery } from "@nestjs/swagger";
+import { NotesService } from "./notes.service";
 
 @ApiBearerAuth()
 @Controller("notes")

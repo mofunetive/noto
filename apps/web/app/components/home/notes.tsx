@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
-import { Label } from "@radix-ui/react-label";
 import { useNote } from "@noto/api";
-import { Session } from "@supabase/supabase-js";
-import { Prisma } from "@noto/database";
-import EditNote from "@/components/home/edit.note";
-import AddNote from "./add-note";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { NotebookText } from "lucide-react";
-import { Button } from "../ui/button";
 import { addNote } from "@noto/api";
+import { Prisma } from "@noto/database";
+import { Label } from "@radix-ui/react-label";
+import { Session } from "@supabase/supabase-js";
+import { NotebookText } from "lucide-react";
+import React, { useState } from "react";
+
+import EditNote from "@/components/home/edit.note";
+
+import { Button } from "../ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import AddNote from "./add-note";
 
 export function NotesList({ session }: { session: Session }) {
 	const refresh_token = session.refresh_token;
