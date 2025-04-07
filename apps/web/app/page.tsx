@@ -43,7 +43,7 @@ export default function Home() {
 							onClick={signIn}
 							// disabled={isLoading}
 						>
-							{isLoading ? "กำลังโหลด..." : "เข้าสู่ระบบเพื่อเริ่ม Note!"}
+							{isLoading ? "กำลังโหลด..." : "เข้าสู่ระบบเพื่อเริ่ม Note !"}
 						</Button>
 					</div>
 				)
