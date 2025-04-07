@@ -1,5 +1,5 @@
 import { Prisma } from "@noto/database";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -19,11 +19,21 @@ export default function AddNote({
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 
+	useEffect(() => {
+		if (open === false && (title.trim() || content.trim())) {
+			onAdd({ title, content, userId: 1 });
+			toast("โน๊ตถูกบันทึกอัตโนมัติ");
+			setTitle("");
+			setContent("");
+			setOpen(false);
+		}
+	}, [title, content, open, onAdd, setOpen]);
+
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogContent className="max-h-screen sm:max-w-2xl">
 				<DialogHeader>
-					<DialogTitle>Noto เพิ่มโน๊ต</DialogTitle>
+					<DialogTitle>เพิ่มโน๊ต</DialogTitle>
 					<DialogDescription>จดโน๊ตของคุณ เพื่อทดทวนความจำ</DialogDescription>
 				</DialogHeader>
 				<form
@@ -49,7 +59,9 @@ export default function AddNote({
 						/>
 						<DialogFooter>
 							<DialogTrigger asChild>
-								<Button type="submit">เพิ่มโน๊ต</Button>
+								<Button className="cursor-pointer" type="submit" disabled={!title.trim() || !content.trim()}>
+									เพิ่มโน๊ต
+								</Button>
 							</DialogTrigger>
 						</DialogFooter>
 					</div>

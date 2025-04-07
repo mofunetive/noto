@@ -62,44 +62,50 @@ export function AppSidebar() {
 					</SidebarGroupContent>
 				</SidebarGroup>
 			</SidebarContent>
-			<SidebarFooter>
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<SidebarMenuButton>
-							<User2 />
-							{user?.user_metadata.name ?? "Username"}
-							<ChevronRight className="ml-auto" />
-						</SidebarMenuButton>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent side="right">
-						<div className="flex m-2 gap-2 items-center">
-							<Avatar>
-								<AvatarImage src={user?.user_metadata.avatar_url ?? "https://i.ibb.co/QvZF9YQ0/1743190075465.jpg"} />
-								<AvatarFallback>N</AvatarFallback>
-							</Avatar>
-							<div className="flex flex-col gap-1">
-								<Label>{user?.user_metadata.name ?? "Not login"}</Label>
-								<Label>{user?.email}</Label>
+			{user ? (
+				<SidebarFooter>
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<SidebarMenuButton>
+								<Avatar className="h-6 w-6">
+									{user?.user_metadata.avatar_url ? (
+										<>
+											<AvatarImage src={user?.user_metadata.avatar_url} />
+											<AvatarFallback>{user?.user_metadata.name?.charAt(0) ?? "U"}</AvatarFallback>
+										</>
+									) : (
+										<User2 />
+									)}
+								</Avatar>
+								{user?.user_metadata.name ?? "Username"}
+								<ChevronRight className="ml-auto" />
+							</SidebarMenuButton>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent side="right">
+							<div className="flex m-2 gap-2 items-center">
+								<div className="flex flex-col gap-1">
+									<Label>{user?.email}</Label>
+								</div>
 							</div>
-						</div>
-						{/* <DropdownMenuSeparator />
-						<DropdownMenuItem>
-							<Label>Account</Label>
-						</DropdownMenuItem> */}
-						{/* <DropdownMenuItem>
-							<Label>Test</Label>
-						</DropdownMenuItem>
-						<DropdownMenuItem>
-							<Label>Test 2</Label>
-						</DropdownMenuItem> */}
-						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={signOut}>
-							<LogOut />
-							<Label>Logout</Label>
-						</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
-			</SidebarFooter>
+							{/* <DropdownMenuSeparator />
+                     <DropdownMenuItem>
+                        <Label>Account</Label>
+                     </DropdownMenuItem> */}
+							{/* <DropdownMenuItem>
+                        <Label>Test</Label>
+                     </DropdownMenuItem>
+                     <DropdownMenuItem>
+                        <Label>Test 2</Label>
+                     </DropdownMenuItem> */}
+							<DropdownMenuSeparator />
+							<DropdownMenuItem onClick={signOut}>
+								<LogOut />
+								<Label>Logout</Label>
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
+				</SidebarFooter>
+			) : undefined}
 		</Sidebar>
 	);
 }

@@ -10,6 +10,7 @@ import EditNote from "@/components/home/edit.note";
 
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Spinner } from "../ui/spinner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import AddNote from "./add.note";
 
@@ -19,8 +20,12 @@ export function NotesList({ session }: { session: Session }) {
 	const [editDrawerOpen, setEditDrawerOpen] = useState<Prisma.notesUncheckedCreateInput | undefined>(undefined);
 	const { notes, isError, isLoading, mutate } = useNote(refresh_token);
 
-	if (isError) {
-		return <p className="text-red-500">Failed to load notes.</p>;
+	if (isError || (notes === undefined && !isLoading)) {
+		return (
+			<div className="flex gap-2 h-full justify-center items-center">
+				<p>เกิดข้อผิดพลาด ไม่ทราบสาเหตุ</p>
+			</div>
+		);
 	}
 
 	return (
@@ -34,10 +39,9 @@ export function NotesList({ session }: { session: Session }) {
 					<p>ที่ขวาล่างได้เลย</p>
 				</div>
 			)}
-
-			<div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-				{!isLoading ? (
-					notes.map(({ id, title, content, updatedAt, createdAt }) => {
+			{!isLoading ? (
+				<div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+					{notes?.map(({ id, title, content, updatedAt, createdAt }) => {
 						const date = new Date(updatedAt ?? createdAt).toLocaleString();
 
 						return (
@@ -60,16 +64,18 @@ export function NotesList({ session }: { session: Session }) {
 								</CardContent>
 								<CardFooter className="ml-auto">
 									<CardDescription>
-										<Label className="text-sm">{date}</Label>
+										<Label className="text-sm cursor-pointer">{date}</Label>
 									</CardDescription>
 								</CardFooter>
 							</Card>
 						);
-					})
-				) : (
-					<p>Loading notes...</p>
-				)}
-			</div>
+					})}
+				</div>
+			) : (
+				<div className="flex gap-2 h-full justify-center items-center">
+					<Spinner size="lg" className="bg-black dark:bg-white" />
+				</div>
+			)}
 
 			{editDrawerOpen && <EditNote session={session} note={editDrawerOpen} setOpen={() => setEditDrawerOpen(undefined)} mutate={mutate} />}
 

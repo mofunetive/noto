@@ -58,19 +58,20 @@ export default function EditNote({
 			await delNote(noteId.toString(), refresh_token);
 			toast("โน๊ตถูกลบเรียบร้อย");
 			await mutate();
+			setOpen();
 		}
 	};
 
 	return (
 		<Drawer open={note != undefined} onOpenChange={setOpen}>
 			<DrawerContent>
-				<form onSubmit={submitForm}>
-					<div className="relative mx-auto w-full max-w-4xl">
-						<Button className="absolute top-8 right-8 cursor-pointer" variant="outline" size="icon" onClick={deleteNote}>
-							<Trash2 color="red" />
-						</Button>
+				<div className="relative mx-auto w-full max-w-4xl">
+					<Button className="absolute top-8 right-8 cursor-pointer" variant="outline" size="icon" onClick={deleteNote}>
+						<Trash2 color="red" />
+					</Button>
+					<form onSubmit={submitForm}>
 						<DrawerHeader>
-							<DrawerTitle>Noto แก้ไขโน๊ต</DrawerTitle>
+							<DrawerTitle>แก้ไขโน๊ต</DrawerTitle>
 							<DrawerDescription>บลา บลา บลา</DrawerDescription>
 						</DrawerHeader>
 						<div className="flex flex-col p-4 gap-4">
@@ -94,8 +95,8 @@ export default function EditNote({
 								</Button>
 							</DrawerClose>
 						</DrawerFooter>
-					</div>
-				</form>
+					</form>
+				</div>
 			</DrawerContent>
 		</Drawer>
 	);

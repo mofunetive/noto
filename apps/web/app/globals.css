@@ -171,6 +171,7 @@
 	}
 
 	* {
+	  user-select: none;
 		@apply border-border outline-ring/50;
 	}
 
