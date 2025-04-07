@@ -23,7 +23,6 @@
     },
     "apps/web": {
       "name": "website",
-      "version": "1.0.0",
       "dependencies": {
         "@noto/api": "workspace:*",
         "@noto/database": "workspace:*",
@@ -82,7 +81,6 @@
     },
     "packages/nestjs": {
       "name": "@noto/nestjs",
-      "version": "1.0.0",
       "dependencies": {
         "@nestjs/common": "11.0.13",
         "@nestjs/core": "11.0.13",

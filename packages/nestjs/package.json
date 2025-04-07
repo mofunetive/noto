@@ -1,6 +1,5 @@
 {
 	"name": "@noto/nestjs",
-	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"build": "nest build",
