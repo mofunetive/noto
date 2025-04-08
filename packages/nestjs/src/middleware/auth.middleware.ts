@@ -20,13 +20,9 @@ export class AuthMiddleware implements NestMiddleware {
 		}
 
 		const tokenValue = bearerToken[1];
-		const refreshToken = await this.prismaService.refresh_tokens.findFirst({
+		const refreshToken = await this.prismaService.refresh_tokens.findFirstOrThrow({
 			where: { token: tokenValue },
 		});
-
-		if (!refreshToken) {
-			throw new UnauthorizedException("Token not found");
-		}
 
 		if (refreshToken.user_id) {
 			let user = await this.prismaService.user.findUnique({

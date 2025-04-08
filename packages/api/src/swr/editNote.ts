@@ -24,3 +24,26 @@ export async function editNote(id: string, input: Prisma.notesCreateInput, refre
 		};
 	}
 }
+
+export async function orderNotes(orders: { id: notes["id"]; order: notes["order"]; updatedAt: notes["updatedAt"] }[], refresh_token: Options["refresh_token"]) {
+	try {
+		const response = await fetcher({
+			refresh_token,
+			method: "PATCH",
+			url: `/api/v1/notes/order`,
+			options: {
+				body: JSON.stringify({ orders }),
+			},
+		});
+
+		const data = response as notes[];
+
+		return {
+			notes: data,
+		};
+	} catch (error) {
+		return {
+			notes: null,
+		};
+	}
+}

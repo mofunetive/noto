@@ -35,6 +35,7 @@ generator nestjsDto {
 
 model notes {
    id        Int      @id @default(autoincrement())
+   order     Int?
    title     String
    content   String
    createdAt DateTime @default(now())

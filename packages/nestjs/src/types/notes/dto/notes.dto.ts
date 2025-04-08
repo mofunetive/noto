@@ -7,6 +7,12 @@ export class Notes {
 	})
 	id: number;
 	@ApiProperty({
+		type: "integer",
+		format: "int32",
+		nullable: true,
+	})
+	order: number | null;
+	@ApiProperty({
 		type: "string",
 	})
 	title: string;

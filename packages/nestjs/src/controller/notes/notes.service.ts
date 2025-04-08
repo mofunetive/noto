@@ -1,4 +1,5 @@
 import { Injectable, Req } from "@nestjs/common";
+import type { notes } from "@prisma/client";
 
 import { PrismaService } from "../../service/prisma/prisma.service";
 import CreateNotesDto from "./dto/create-note.dto";
@@ -38,6 +39,23 @@ export class NotesService {
 				...updateNoteDto,
 			},
 		});
+	}
+
+	moveOrder(@Req() req: Request, orders: { id: notes["id"]; order: notes["order"]; updatedAt: notes["updatedAt"] }[]) {
+		return this.prisma.$transaction(
+			orders.map(({ id, order, updatedAt }) =>
+				this.prisma.notes.update({
+					where: {
+						id,
+						userId: Number(req.headers["userId"]),
+					},
+					data: {
+						order,
+						updatedAt,
+					},
+				}),
+			),
+		);
 	}
 
 	remove(@Req() req: Request, id: number) {
