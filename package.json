@@ -8,7 +8,7 @@
 	],
 	"scripts": {
 		"build": "turbo run build",
-		"build:pkg": "turbo build --filter='./packages/*'",
+		"build:pkg": "bunx turbo build --filter='./packages/*'",
 		"db:build": "dotenv -e .env -- bun --filter '@noto/database' build",
 		"db:pull": "dotenv -e .env -- bun --filter '@noto/database' pull",
 		"db:push": "dotenv -e .env -- bun --filter '@noto/database' push",
