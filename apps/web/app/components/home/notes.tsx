@@ -8,6 +8,7 @@ import React, { useState } from "react";
 
 import EditNote from "@/components/home/edit.note";
 import { handleDragStart, handleDrop } from "@/function/notes/on-drag";
+import supabase from "@/services/supabase";
 
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
@@ -31,11 +32,18 @@ export function NotesList({ session }: { session: Session }) {
 	};
 
 	if (isError || (notes === undefined && !isLoading)) {
-		return (
-			<div className="flex gap-2 h-full justify-center items-center">
-				<p>เกิดข้อผิดพลาด ไม่ทราบสาเหตุ</p>
-			</div>
-		);
+		if (isError?.toString().includes("500")) {
+			(async () => {
+				await supabase.auth.refreshSession();
+				window.location.reload();
+			})();
+		} else {
+			return (
+				<div className="flex gap-2 h-full justify-center items-center">
+					<p>{isError?.toString()}</p>
+				</div>
+			);
+		}
 	}
 
 	return (
@@ -51,65 +59,66 @@ export function NotesList({ session }: { session: Session }) {
 			)}
 			{!isLoading ? (
 				<div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-					{notes
-						?.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-						.map(({ id, title, content, updatedAt, createdAt }, index) => {
-							const date = new Date(updatedAt ?? createdAt ?? Date.now()).toLocaleString();
+					{Array.isArray(notes) &&
+						notes
+							.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+							.map(({ id, title, content, updatedAt, createdAt }, index) => {
+								const date = new Date(updatedAt ?? createdAt ?? Date.now()).toLocaleString();
 
-							return (
-								<Card
-									key={id}
-									className={`relative break-words overflow-ellipsis cursor-pointer transition-all duration-200 ease-in-out transform ${
-										hoveredIndex === index ? "scale-90 opacity-50" : ""
-									}`}
-									draggable
-									onDragStart={(event) => {
-										handleDragStart(event, index);
-										setDraggedIndex(index);
-										event.dataTransfer.effectAllowed = "move";
-									}}
-									onDragOver={(event) => {
-										event.preventDefault();
-										if (index !== hoveredIndex) {
-											setHoveredIndex(index);
-											if (draggedIndex !== null && draggedIndex !== index) {
-												const newNotes = reorder(notes, draggedIndex, index);
-												mutate(newNotes, false);
-												setDraggedIndex(index);
+								return (
+									<Card
+										key={id}
+										className={`relative break-words overflow-ellipsis cursor-pointer transition-all duration-200 ease-in-out transform ${
+											hoveredIndex === index ? "scale-90 opacity-50" : ""
+										}`}
+										draggable
+										onDragStart={(event) => {
+											handleDragStart(event, index);
+											setDraggedIndex(index);
+											event.dataTransfer.effectAllowed = "move";
+										}}
+										onDragOver={(event) => {
+											event.preventDefault();
+											if (index !== hoveredIndex) {
+												setHoveredIndex(index);
+												if (draggedIndex !== null && draggedIndex !== index) {
+													const newNotes = reorder(notes, draggedIndex, index);
+													mutate(newNotes, false);
+													setDraggedIndex(index);
+												}
 											}
+										}}
+										onDrop={(event) => {
+											handleDrop(event, index, notes, refresh_token, mutate);
+											setDraggedIndex(null);
+											setHoveredIndex(null);
+										}}
+										onDragEnd={() => {
+											setDraggedIndex(null);
+											setHoveredIndex(null);
+										}}
+										onClick={() =>
+											setEditDrawerOpen({
+												id,
+												title,
+												content,
+											})
 										}
-									}}
-									onDrop={(event) => {
-										handleDrop(event, index, notes, refresh_token, mutate);
-										setDraggedIndex(null);
-										setHoveredIndex(null);
-									}}
-									onDragEnd={() => {
-										setDraggedIndex(null);
-										setHoveredIndex(null);
-									}}
-									onClick={() =>
-										setEditDrawerOpen({
-											id,
-											title,
-											content,
-										})
-									}
-								>
-									<CardHeader>
-										<CardTitle className="overflow-hidden line-clamp-1">{title}</CardTitle>
-									</CardHeader>
-									<CardContent className="h-18 line-clamp-3">
-										<p>{content}</p>
-									</CardContent>
-									<CardFooter className="ml-auto">
-										<CardDescription>
-											<Label className="text-sm cursor-pointer">{date}</Label>
-										</CardDescription>
-									</CardFooter>
-								</Card>
-							);
-						})}
+									>
+										<CardHeader>
+											<CardTitle className="overflow-hidden line-clamp-1">{title}</CardTitle>
+										</CardHeader>
+										<CardContent className="h-18 line-clamp-3">
+											<p>{content}</p>
+										</CardContent>
+										<CardFooter className="ml-auto">
+											<CardDescription>
+												<Label className="text-sm cursor-pointer">{date}</Label>
+											</CardDescription>
+										</CardFooter>
+									</Card>
+								);
+							})}
 				</div>
 			) : (
 				<div className="flex gap-2 h-full justify-center items-center">
