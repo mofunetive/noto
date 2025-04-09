@@ -12,6 +12,7 @@
 		"db:build": "dotenv -e .env -- bun --filter '@noto/database' build",
 		"db:pull": "dotenv -e .env -- bun --filter '@noto/database' pull",
 		"db:push": "dotenv -e .env -- bun --filter '@noto/database' push",
+		"deps:update": "bunx ncu -ws --root -u",
 		"dev": "dotenv -e .env -- turbo run dev",
 		"lint": "turbo run lint",
 		"prettier": "prettier --write . --ignore-unknown"
