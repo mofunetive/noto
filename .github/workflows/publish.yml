@@ -30,7 +30,7 @@ jobs:
               bun-version-file: "package.json"
 
          - name: Install Dependencies
-           run: bun install
+           run: bun install --filter './packages/*' --production
 
          - name: Install Dependencies
            run: bun run build:pkg
