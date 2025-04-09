@@ -13,16 +13,16 @@ export let fetcher = async ({ refresh_token, method, url, options }: Options) =>
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${refresh_token}`,
 		},
-   };
- 
-   try {
-      const response = await fetch(fullUrl, updatedOptions);
-      if (!response.ok) {
-         throw new Error(`HTTP error! status: ${response.status}`);
-      }
+	};
 
-      return await response.json();
-   } catch (error) {
-      throw new Error(`Fetch failed: ${error.message}`);
-   }
+	try {
+		const response = await fetch(fullUrl, updatedOptions);
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		return await response.json();
+	} catch (error) {
+		throw new Error(`Fetch failed: ${error.message}`);
+	}
 };
