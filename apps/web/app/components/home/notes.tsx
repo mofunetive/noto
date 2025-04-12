@@ -61,7 +61,7 @@ export function NotesList({ session }: { session: Session }) {
 				<div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
 					{Array.isArray(notes) &&
 						notes
-							.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+							.sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0))
 							.map(({ id, title, content, updatedAt, createdAt }, index) => {
 								const date = new Date(updatedAt ?? createdAt ?? Date.now()).toLocaleString();
 
