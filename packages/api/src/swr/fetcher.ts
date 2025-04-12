@@ -23,6 +23,10 @@ export let fetcher = async ({ refresh_token, method, url, options }: Options) =>
 
 		return await response.json();
 	} catch (error) {
-		throw new Error(`Fetch failed: ${error.message}`);
+		if (error instanceof Error) {
+			throw new Error(`Fetch failed: ${error.message}`);
+		} else {
+			throw new Error(`Fetch failed: ${String(error)}`);
+		}
 	}
 };
