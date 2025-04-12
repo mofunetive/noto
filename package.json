@@ -7,7 +7,6 @@
 		"./packages/*"
 	],
 	"scripts": {
-      "prepare": "is-ci || husky",
 		"build": "turbo run build",
 		"build:pkg": "bunx turbo build --filter='./packages/*'",
 		"db:build": "dotenv -e .env -- bun --filter '@noto/database' build",
@@ -15,20 +14,18 @@
 		"db:push": "dotenv -e .env -- bun --filter '@noto/database' push",
 		"deps:update": "bunx ncu -ws --root -u",
 		"dev": "dotenv -e .env -- turbo run dev",
-      "pre-commit": "bunx lint-staged --quiet",
-      "pre-push": "bun --silent lint",
 		"lint": "turbo run lint",
+		"pre-commit": "bunx lint-staged --quiet",
+		"pre-push": "bun --silent lint",
+		"prepare": "is-ci || husky",
 		"prettier": "prettier --write . --ignore-unknown"
 	},
-   "lint-staged": {
+	"lint-staged": {
 		"*": [
 			"prettier --write --ignore-unknown"
 		]
 	},
 	"devDependencies": {
-      "husky": "9.1.7",
-      "lint-staged": "15.5.1",
-      "is-ci": "4.1.0",
 		"@eslint/eslintrc": "3.3.1",
 		"@eslint/js": "9.24.0",
 		"@types/bun": "1.2.9",
@@ -38,6 +35,9 @@
 		"eslint-config-prettier": "10.1.1",
 		"eslint-plugin-prettier": "5.2.6",
 		"eslint-plugin-simple-import-sort": "12.1.1",
+		"husky": "9.1.7",
+		"is-ci": "4.1.0",
+		"lint-staged": "15.5.1",
 		"prettier": "3.5.3",
 		"prettier-plugin-packagejson": "2.5.10",
 		"prettier-plugin-sort-json": "4.1.1",
