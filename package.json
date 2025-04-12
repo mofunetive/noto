@@ -7,17 +7,28 @@
 		"./packages/*"
 	],
 	"scripts": {
-		"build": "dotenv -e .env --  turbo run build",
+      "prepare": "is-ci || husky",
+		"build": "turbo run build",
 		"build:pkg": "bunx turbo build --filter='./packages/*'",
 		"db:build": "dotenv -e .env -- bun --filter '@noto/database' build",
 		"db:pull": "dotenv -e .env -- bun --filter '@noto/database' pull",
 		"db:push": "dotenv -e .env -- bun --filter '@noto/database' push",
 		"deps:update": "bunx ncu -ws --root -u",
 		"dev": "dotenv -e .env -- turbo run dev",
+      "pre-commit": "bunx lint-staged --quiet",
+      "pre-push": "bun --silent lint",
 		"lint": "turbo run lint",
 		"prettier": "prettier --write . --ignore-unknown"
 	},
+   "lint-staged": {
+		"*": [
+			"prettier --write --ignore-unknown"
+		]
+	},
 	"devDependencies": {
+      "husky": "9.1.7",
+      "lint-staged": "15.5.1",
+      "is-ci": "4.1.0",
 		"@eslint/eslintrc": "3.3.1",
 		"@eslint/js": "9.24.0",
 		"@types/bun": "1.2.9",
