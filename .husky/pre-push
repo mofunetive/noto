@@ -1,0 +1,9 @@
+echo "→ husky (pre-push)"
+
+if command -v bun > /dev/null; then
+   bun run --silent pre-push
+else
+   echo "❌ This project uses bun." && exit 127
+fi
+
+echo
