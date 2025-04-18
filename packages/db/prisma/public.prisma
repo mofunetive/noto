@@ -3,6 +3,7 @@ generator client {
    previewFeatures = ["multiSchema", "prismaSchemaFolder"]
    output          = "../dist"
    // moduleFormat    = "esm"
+   binaryTargets   = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
