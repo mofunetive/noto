@@ -1,9 +1,7 @@
 {
-	  "installCommand": "bun install",
-  "buildCommand": "turbo run build --filter=website",
-	"framework": "nextjs",
+	"buildCommand": "turbo run build --filter=website",
 	"builds": [
-			{
+		{
 			"src": "apps/web/package.json",
 			"use": "@vercel/next"
 		},
@@ -12,9 +10,11 @@
 			"use": "@vercel/node"
 		}
 	],
+	"framework": "nextjs",
 	"github": {
 		"enabled": false
 	},
+	"installCommand": "bun install",
 	"public": false,
 	"regions": ["sin1"],
 	"routes": [
