@@ -4,6 +4,9 @@
 		{
 			"src": "apps/web/package.json",
 			"use": "@vercel/next"
+      "config": {
+        "buildCommand": "next build --turbopack"
+      }
 		},
 		{
 			"src": "packages/nestjs/dist/main.js",
