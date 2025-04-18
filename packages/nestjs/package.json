@@ -3,7 +3,7 @@
 	"private": true,
 	"scripts": {
 		"build": "nest build",
-		"clean": "rimraf dist",
+		"clean": "bunx rimraf dist",
 		"debug": "nest start --debug --watch",
 		"dev": "nest start --watch",
 		"format": "prettier --write \"src/**/*.ts\"",

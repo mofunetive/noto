@@ -4,7 +4,7 @@
 	"main": "prisma.ts",
 	"scripts": {
 		"build": "prisma generate",
-		"clean": "rimraf dist",
+		"clean": "bunx rimraf dist",
 		"dev": "prisma generate && BROWSER=none prisma studio",
 		"generate": "prisma generate",
 		"postinstall": "bunx prisma generate",
