@@ -6,6 +6,7 @@
 		"eslint.config.ts"
 	],
 	"include": [
-		"../db/dist/"
+		"src",
+		"../db/dist"
 	]
 }
