@@ -1,6 +1,6 @@
 {
 	  "installCommand": "bun install",
-  "buildCommand": "turbo run build --filter=website"
+  "buildCommand": "turbo run build --filter=website",
 	"framework": "nextjs",
 	"builds": [
 			{
@@ -15,7 +15,6 @@
 	"github": {
 		"enabled": false
 	},
-	"outputDirectory": "apps/web/.next",
 	"public": false,
 	"regions": ["sin1"],
 	"routes": [
