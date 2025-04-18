@@ -1,9 +1,9 @@
 {
-	  "framework": "nextjs",
-	  "outputDirectory": "apps/web/.next",
+	"framework": "nextjs",
 	"github": {
 		"enabled": false
 	},
+	"outputDirectory": "apps/web/.next",
 	"public": false,
 	"regions": ["sin1"],
 	"routes": [
