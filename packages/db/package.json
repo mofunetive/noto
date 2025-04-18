@@ -4,6 +4,7 @@
 	"main": "prisma.ts",
 	"scripts": {
 		"build": "prisma generate",
+		"clean": "rimraf dist",
 		"dev": "prisma generate && BROWSER=none prisma studio",
 		"generate": "prisma generate",
 		"postinstall": "bunx prisma generate",
@@ -16,7 +17,7 @@
 		"prisma": "6.6.0"
 	},
 	"devDependencies": {
-		"@types/node": "22.14.0"
+		"@types/node": "22.14.1"
 	},
 	"prisma": {
 		"schema": "./prisma"
