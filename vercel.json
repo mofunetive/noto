@@ -1,14 +1,6 @@
 {
-	"builds": [
-		{
-			"src": "apps/web/package.json",
-			"use": "@vercel/next"
-		},
-		{
-			"src": "packages/nestjs/dist/main.js",
-			"use": "@vercel/node"
-		}
-	],
+	  "framework": "nextjs",
+	  "outputDirectory": "apps/web/.next",
 	"github": {
 		"enabled": false
 	},
