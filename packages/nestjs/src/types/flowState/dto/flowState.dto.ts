@@ -1,4 +1,4 @@
-import { code_challenge_method } from "@prisma/client";
+import { code_challenge_method } from "../../../../../db/dist";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class FlowState {

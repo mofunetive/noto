@@ -1,4 +1,4 @@
-import { one_time_token_type } from "@prisma/client";
+import { one_time_token_type } from "../../../../../db/dist";
 import { ApiProperty } from "@nestjs/swagger";
 import { Users } from "../../users/entities/users.entity";
 

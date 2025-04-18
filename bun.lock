@@ -75,7 +75,6 @@
       "name": "@noto/database",
       "dependencies": {
         "@brakebein/prisma-generator-nestjs-dto": "1.27.0",
-        "@prisma/client": "6.6.0",
         "prisma": "6.6.0",
       },
       "devDependencies": {

@@ -1,5 +1,5 @@
 import { ApiExtraModels, ApiProperty } from "@nestjs/swagger";
-import { one_time_token_type } from "@prisma/client";
+import { one_time_token_type } from "../../../../../db/dist";
 
 export class OneTimeTokensUserIdTokenTypeUniqueInput {
 	@ApiProperty({

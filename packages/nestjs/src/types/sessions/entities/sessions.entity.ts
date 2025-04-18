@@ -1,4 +1,4 @@
-import { aal_level } from "@prisma/client";
+import { aal_level } from "../../../../../db/dist";
 import { ApiProperty } from "@nestjs/swagger";
 import { MfaAmrClaims } from "../../mfaAmrClaims/entities/mfaAmrClaims.entity";
 import { RefreshTokens } from "../../refreshTokens/entities/refreshTokens.entity";

@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../../../db/dist";
 import { ApiProperty } from "@nestjs/swagger";
 import { Users } from "../../users/entities/users.entity";
 

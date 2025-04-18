@@ -1,4 +1,4 @@
-import { Prisma, factor_status, factor_type } from "@prisma/client";
+import { Prisma, factor_status, factor_type } from "../../../../../db/dist";
 import { ApiProperty } from "@nestjs/swagger";
 import { MfaChallenges } from "../../mfaChallenges/entities/mfaChallenges.entity";
 import { Users } from "../../users/entities/users.entity";

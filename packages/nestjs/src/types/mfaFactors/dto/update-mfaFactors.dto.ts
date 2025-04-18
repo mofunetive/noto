@@ -1,4 +1,4 @@
-import { Prisma, factor_status, factor_type } from "@prisma/client";
+import { Prisma, factor_status, factor_type } from "../../../../../db/dist";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateMfaFactors {
