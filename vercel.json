@@ -3,9 +3,9 @@
 	"builds": [
 		{
 			"src": "apps/web/package.json",
-			"use": "@vercel/next"
+			"use": "@vercel/next",
       "config": {
-        "buildCommand": "next build --turbopack"
+        "buildCommand": "next build --turbopack",
       }
 		},
 		{
