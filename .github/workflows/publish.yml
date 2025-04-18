@@ -47,6 +47,6 @@ jobs:
            uses: amondnet/vercel-action@v25
            with:
               vercel-token: ${{ secrets.VERCEL_TOKEN }}
-              vercel-args: "--prod --logs"
+              vercel-args: "--prod"
               vercel-org-id: ${{ secrets.ORG_ID }}
               vercel-project-id: ${{ secrets.PROJECT_ID }}
