@@ -1,5 +1,17 @@
 {
+	  "installCommand": "bun install",
+  "buildCommand": "turbo run build --filter=website"
 	"framework": "nextjs",
+	"builds": [
+			{
+			"src": "apps/web/package.json",
+			"use": "@vercel/next"
+		},
+		{
+			"src": "packages/nestjs/dist/main.js",
+			"use": "@vercel/node"
+		}
+	],
 	"github": {
 		"enabled": false
 	},
