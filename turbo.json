@@ -3,6 +3,9 @@
 	"globalDependencies": [".env"],
 	"globalEnv": ["DATABASE_URL", "SUPABASE_URL", "SUPABASE_KEY"],
 	"tasks": {
+		"website#build": {
+			"outputs": [".next/**", "!.next/cache/**"]
+		},
 		"lint": {
 			"cache": true,
 			"persistent": true
