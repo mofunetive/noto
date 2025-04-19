@@ -1,11 +1,17 @@
 {
-	"buildCommand": "turbo run website#build",
-	"framework": "nextjs",
+	"builds": [
+		{
+			"src": "apps/web/package.json",
+			"use": "@vercel/next"
+		},
+		{
+			"src": "packages/nestjs/dist/main.js",
+			"use": "@vercel/node"
+		}
+	],
 	"github": {
 		"enabled": false
 	},
-	"installCommand": "bun install",
-	"outputDirectory": "apps/web",
 	"public": false,
 	"regions": ["sin1"],
 	"routes": [
